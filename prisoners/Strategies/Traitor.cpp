@@ -25,12 +25,7 @@ Decision Traitor::Decide()
     return Decision::Defect;
 }
 
-void Traitor::AddEnemyDecision(Decision d1, Decision d2)
-{
-
-}
-
-void Traitor::printData(std::ostream & stream) const
+void Traitor::PrintData(std::ostream & stream) const
 {
     stream << "Traitor";
 }

@@ -15,9 +15,10 @@ std::ostream & operator<<(std::ostream & stream, const StrategyInfo & info)
     return stream;
 }
 
-Controller::Controller(ScoreMatrix matrix, std::vector<std::string> names)
+Controller::Controller(ScoreMatrix matrix, const std::string & strategiesConfigPath,std::vector<std::string> names)
 {
     this->scoreMatrix = matrix;
+    this->strategiesConfigPath = strategiesConfigPath;
 
     for (std::string name : names)
     {
@@ -34,18 +35,21 @@ void Controller::tick(int count)
             fight(0, 1, 2);
         }
     }
-}
-
-void Controller::addStrategy(const std::string & name)
-{
-    strategies.push_back(StrategyInfo(Factory::getInstance()->create(name)));
+    else
+    {
+        for (int i = 0; i < count; i++)
+        {
+            this->tournamentTick();
+        }
+    }
 }
 
 void Controller::printState() const
 {
+    int index = 0;
     for (StrategyInfo info : strategies)
     {
-        std::cout << info << std::endl;
+        std::cout << " #" << index++ << " " << info << std::endl;
     }
 }
 
@@ -66,8 +70,17 @@ void Controller::printWinner() const
             minStrategy = &strategies.at(i);
         }
     }
-    std::cout << "The winner is " << *minStrategy->strategy << " with " << minStrategy->currentScore << " years" << std::endl;
-    std::cout << "And " << *maxStrategy->strategy << " gonna rot in prison for " << maxStrategy->currentScore << " years" << std::endl;
+    std::cout << "The winner is " << *minStrategy->strategy << " with " << minStrategy->currentScore << " years"
+              << std::endl;
+    std::cout << "And " << *maxStrategy->strategy << " gonna rot in prison for " << maxStrategy->currentScore
+              << " years" << std::endl;
+}
+
+void Controller::addStrategy(const std::string & name)
+{
+    StrategyInfo strategyInfo(Factory::getInstance()->create(name));
+    strategies.push_back(strategyInfo);
+    strategyInfo.strategy->LoadConfig(this->strategiesConfigPath);
 }
 
 void Controller::fight(size_t num1, size_t num2, size_t num3)
@@ -99,4 +112,20 @@ void Controller::fight(size_t num1, size_t num2, size_t num3)
     strategies.at(num3).lastDecision = d3;
 
     delete[] scores;
+}
+
+void Controller::tournamentTick()
+{
+    for (size_t i = 0; i < strategies.size() - 2; i++)
+    {
+        for (size_t j = i + 1; j < strategies.size() - 1; j++)
+        {
+            for (size_t k = j + 1; k < strategies.size(); k++)
+            {
+                std::cout << "Match '" << i << "vs" << j << "vs" << k << "':" << std::endl;
+                this->fight(i, j, k);
+                this->printState();
+            }
+        }
+    }
 }

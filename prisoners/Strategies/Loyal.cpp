@@ -25,12 +25,7 @@ Decision Loyal::Decide()
     return Decision::Cooperate;
 }
 
-void Loyal::AddEnemyDecision(Decision d1, Decision d2)
-{
-
-}
-
-void Loyal::printData(std::ostream & stream) const
+void Loyal::PrintData(std::ostream & stream) const
 {
     stream << "Loyal";
 }

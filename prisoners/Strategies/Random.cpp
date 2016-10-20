@@ -2,6 +2,7 @@
 // Created by glavak on 16.10.16.
 //
 
+#include <fstream>
 #include "Random.h"
 #include "../Factory.h"
 
@@ -22,22 +23,31 @@ Random::~Random()
 
 Decision Random::Decide()
 {
-    if (rand() % 2)
+    float diceRoll = (float) rand() / (float) RAND_MAX;
+    if (diceRoll < cooperateChance)
     {
-        return Defect;
+        return Decision::Cooperate;
     }
     else
     {
-        return Cooperate;
+        return Decision::Defect;
     }
 }
 
-void Random::AddEnemyDecision(Decision d1, Decision d2)
+void Random::LoadConfig(const std::string & path)
 {
+    static int strategyIndex = 0;
 
+    std::ifstream file;
+    file.open(path +
+              "/random-" +
+              std::to_string(++strategyIndex) +
+              ".txt");
+
+    file >> this->cooperateChance;
 }
 
-void Random::printData(std::ostream & stream) const
+void Random::PrintData(std::ostream & stream) const
 {
-    stream << "Random";
+    stream << "Random(" << cooperateChance << ")";
 }

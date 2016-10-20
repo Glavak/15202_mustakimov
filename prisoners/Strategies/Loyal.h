@@ -15,9 +15,7 @@ public:
 
     virtual Decision Decide() override;
 
-    virtual void AddEnemyDecision(Decision d1, Decision d2) override;
-
-    virtual void printData(std::ostream & stream) const override;
+    virtual void PrintData(std::ostream & stream) const override;
 };
 
 

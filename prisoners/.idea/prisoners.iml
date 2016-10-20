@@ -2,6 +2,7 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/Arguments.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ScoreMatrix.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Controller.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Factory.h" isTestSource="false" />
@@ -9,15 +10,20 @@
       <sourceFolder url="file://$MODULE_DIR$/ScoreMatrix.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Controller.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Strategy.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Arguments.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Factory.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Strategy.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Strategies/Random.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Strategies/Loyal.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Strategies/Traitor.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Strategies/Revengeful.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Strategies/Loyal.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Strategies/Random.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Strategies/Revengeful.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Strategies/Random.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Strategies/Varying.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Strategies/Democracy.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Strategies/Random.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Strategies/Varying.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Strategies/Democracy.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Strategies/Loyal.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Strategies/Traitor.cpp" isTestSource="false" />
     </content>

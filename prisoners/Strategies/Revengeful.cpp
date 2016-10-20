@@ -39,7 +39,7 @@ void Revengeful::AddEnemyDecision(Decision d1, Decision d2)
             || d2 == Decision::Defect;
 }
 
-void Revengeful::printData(std::ostream & stream) const
+void Revengeful::PrintData(std::ostream & stream) const
 {
     stream << "Revengeful";
 }

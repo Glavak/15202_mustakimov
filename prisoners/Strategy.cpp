@@ -6,6 +6,6 @@
 
 std::ostream & operator<<(std::ostream & os, const Strategy & strategy)
 {
-    strategy.printData(os);
+    strategy.PrintData(os);
     return os;
 }

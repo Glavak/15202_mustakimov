@@ -51,7 +51,7 @@ int * ScoreMatrix::getScores(Decision d1, Decision d2, Decision d3)
     return scores;
 }
 
-void ScoreMatrix::loadFromFile(std::string filename)
+void ScoreMatrix::loadFromFile(const std::string & filename)
 {
     std::ifstream file;
     file.open(filename);

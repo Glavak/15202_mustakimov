@@ -13,7 +13,7 @@ class ScoreMatrix
 public:
     ScoreMatrix();
     int * getScores(Decision d1, Decision d2, Decision d3);
-    void loadFromFile(std::string filename);
+    void loadFromFile(const std::string & filename);
 
 
 private:
