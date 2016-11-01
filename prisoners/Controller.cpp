@@ -10,8 +10,8 @@ std::ostream & operator<<(std::ostream & stream, const StrategyInfo & info)
 {
     stream << *info.strategy << " "
            << (info.lastDecision == Decision::Defect ? "defects" : "cooperates")
-           << " and gains " << info.lastScore << " years"
-           << " with total of " << info.currentScore << " years";
+           << " and gains " << info.lastScore << " points"
+           << " with total of " << info.currentScore << " points";
     return stream;
 }
 
@@ -70,15 +70,23 @@ void Controller::printWinner() const
             minStrategy = &strategies.at(i);
         }
     }
-    std::cout << "The winner is " << *minStrategy->strategy << " with " << minStrategy->currentScore << " years"
+    std::cout << "The winner is "
+              << *maxStrategy->strategy
+              << " with "
+              << maxStrategy->currentScore
+              << " points"
               << std::endl;
-    std::cout << "And " << *maxStrategy->strategy << " gonna rot in prison for " << maxStrategy->currentScore
-              << " years" << std::endl;
+    std::cout << "And "
+              << *minStrategy->strategy
+              << " gonna rot in prison with "
+              << minStrategy->currentScore
+              << " points"
+              << std::endl;
 }
 
 void Controller::addStrategy(const std::string & name)
 {
-    StrategyInfo strategyInfo(Factory::getInstance()->create(name));
+    StrategyInfo strategyInfo(Factory<Strategy, std::string>::getInstance()->create(name));
     strategies.push_back(strategyInfo);
     strategyInfo.strategy->LoadConfig(this->strategiesConfigPath);
 }

@@ -12,7 +12,7 @@ namespace
         return new Revengeful();
     }
 
-    bool registered = Factory::getInstance()->reg("revengeful", create);
+    bool registered = Factory<Strategy, std::string>::getInstance()->reg("revengeful", create);
 }
 
 Revengeful::~Revengeful()

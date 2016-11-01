@@ -12,7 +12,7 @@ namespace
         return new Traitor();
     }
 
-    bool registered = Factory::getInstance()->reg("traitor", create);
+    bool registered = Factory<Strategy, std::string>::getInstance()->reg("traitor", create);
 }
 
 Traitor::~Traitor()

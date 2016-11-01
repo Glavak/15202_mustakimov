@@ -9,20 +9,44 @@
 #include <unordered_map>
 #include "Strategy.h"
 
+template <class T>
+class DefaultErrorPolicy
+{
+public:
+    static T* HandleError()
+    {
+
+    }
+};
+
+template <class Tproduct, class Tid>
 class Factory
 {
 public:
-    typedef Strategy * (* creator_t)();
+    typedef Tproduct * (* creator_t)();
 
     static Factory * getInstance()
     {
-        static Factory f;
+        static Factory<Tproduct, Tid> f;
         return &f;
     }
 
-    Strategy * create(const std::string & id);
+    Tproduct * create(const Tid & id)
+    {
+        auto iter= creators.find(id);
+        if(creators.end() == iter)
+        {
+            throw "No such id";
+            //return ErrorPolicy::HandleError();
+        }
+        return (*iter).second();
+    }
 
-    bool reg(const std::string & id, const creator_t & creator);
+    bool reg(const Tid & id, const creator_t & creator)
+    {
+        creators[id] = creator;
+        return true;
+    }
 
     Factory(const Factory &) = delete;
 
@@ -32,8 +56,7 @@ private:
     Factory()
     {}
 
-    std::unordered_map<std::string, creator_t> creators;
+    std::unordered_map<Tid, creator_t> creators;
 };
-
 
 #endif //STARCRAFT_FACTORY_H

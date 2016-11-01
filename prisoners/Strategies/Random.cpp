@@ -13,7 +13,7 @@ namespace
         return new Random();
     }
 
-    bool registered = Factory::getInstance()->reg("random", create);
+    bool registered = Factory<Strategy, std::string>::getInstance()->reg("random", create);
 }
 
 Random::~Random()

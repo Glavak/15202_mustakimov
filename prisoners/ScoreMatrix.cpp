@@ -13,39 +13,39 @@ ScoreMatrix::ScoreMatrix()
 
 int * ScoreMatrix::getScores(Decision d1, Decision d2, Decision d3)
 {
-    int defectsCount = 0;
+    int cooperateCount = 0;
 
-    if (d1 == Decision::Defect) defectsCount++;
-    if (d2 == Decision::Defect) defectsCount++;
-    if (d3 == Decision::Defect) defectsCount++;
+    if (d1 == Decision::Cooperate) cooperateCount++;
+    if (d2 == Decision::Cooperate) cooperateCount++;
+    if (d3 == Decision::Cooperate) cooperateCount++;
 
     int * scores = new int[3];
 
-    if (d1 == Decision::Defect)
+    if (d1 == Decision::Cooperate)
     {
-        scores[0] = defectsScores[defectsCount];
+        scores[0] = defectsScores[cooperateCount];
     }
     else
     {
-        scores[0] = cooperatesScores[defectsCount];
+        scores[0] = cooperatesScores[cooperateCount];
     }
 
-    if (d2 == Decision::Defect)
+    if (d2 == Decision::Cooperate)
     {
-        scores[1] = defectsScores[defectsCount];
+        scores[1] = defectsScores[cooperateCount];
     }
     else
     {
-        scores[1] = cooperatesScores[defectsCount];
+        scores[1] = cooperatesScores[cooperateCount];
     }
 
-    if (d3 == Decision::Defect)
+    if (d3 == Decision::Cooperate)
     {
-        scores[2] = defectsScores[defectsCount];
+        scores[2] = defectsScores[cooperateCount];
     }
     else
     {
-        scores[2] = cooperatesScores[defectsCount];
+        scores[2] = cooperatesScores[cooperateCount];
     }
 
     return scores;

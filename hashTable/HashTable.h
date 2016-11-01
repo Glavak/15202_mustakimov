@@ -18,6 +18,13 @@ struct ListItem
     Key key;
     Value value;
     ListItem * next;
+
+    ListItem(Key key, Value value, ListItem * next)
+    {
+        this->key = key;
+        this->value = value;
+        this->next = next;
+    }
 };
 
 class HashTable
@@ -40,6 +47,7 @@ public:
     void swap(HashTable & b);
 
     HashTable & operator=(const HashTable & b);
+
     HashTable & operator=(HashTable && b);
 
 
@@ -58,6 +66,8 @@ public:
     // Возвращает значение по ключу. Небезопасный метод.
     // В случае отсутствия ключа в контейнера следует вставить в контейнер
     // значение, созданное конструктором по умолчанию и вернуть ссылку на него.
+    const Value & operator[](const Key & k) const;
+
     Value & operator[](const Key & k);
 
     // Возвращает значение по ключу. Бросает исключение при неудаче.
@@ -74,8 +84,12 @@ public:
     bool operator!=(const HashTable & other) const;
 
 private:
-    const int TABLE_SIZE = 256;
+    size_t table_size = 256;
     ListItem ** table;
 
-    int hash(const Key & key) const;
+    size_t hash(const Key & key) const;
+
+    void rehash();
+
+    const size_t row_length_limit = 12;
 };

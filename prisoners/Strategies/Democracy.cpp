@@ -13,7 +13,7 @@ namespace
         return new Democracy();
     }
 
-    bool registered = Factory::getInstance()->reg("democracy", create);
+    bool registered = Factory<Strategy, std::string>::getInstance()->reg("democracy", create);
 }
 
 Democracy::~Democracy()
@@ -84,7 +84,7 @@ void Democracy::LoadConfig(const std::string & path)
     while (!file.eof())
     {
         file >> strategyName;
-        Strategy * strategy = Factory::getInstance()->create(strategyName);
+        Strategy * strategy = Factory<Strategy, std::string>::getInstance()->create(strategyName);
         strategy->LoadConfig(path);
         voters.push_back(strategy);
     }

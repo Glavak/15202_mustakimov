@@ -14,6 +14,24 @@ TEST(MyArrayTests, AddGetTest)
     ASSERT_ANY_THROW(table.at("Simon"));
 }
 
+TEST(MyArrayTests, RehashTest)
+{
+    HashTable table;
+
+    table.insert("Aab", Value{18, 42});
+    table.insert("Aba", Value{19, 100});
+    table.insert("Harold", Value{18, 64});
+
+    for (int i = 0; i < 1000; i++)
+    {
+        table.insert(std::to_string(i).c_str(), Value{5,3});
+    }
+
+    ASSERT_EQ(42, table.at("Aab").weight);
+    ASSERT_EQ(19, table.at("Aba").age);
+    ASSERT_ANY_THROW(table.at("Simon"));
+}
+
 TEST(MyArrayTests, ClearEmptyTest)
 {
     HashTable table;

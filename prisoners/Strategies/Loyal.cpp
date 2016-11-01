@@ -12,7 +12,7 @@ namespace
         return new Loyal();
     }
 
-    bool registered = Factory::getInstance()->reg("loyal", create);
+    bool registered = Factory<Strategy, std::string>::getInstance()->reg("loyal", create);
 }
 
 Loyal::~Loyal()

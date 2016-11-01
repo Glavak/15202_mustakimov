@@ -12,7 +12,7 @@ namespace
         return new Varying();
     }
 
-    bool registered = Factory::getInstance()->reg("varying", create);
+    bool registered = Factory<Strategy, std::string>::getInstance()->reg("varying", create);
 }
 
 Varying::~Varying()

@@ -2,11 +2,9 @@
 
 HashTable::HashTable()
 {
-    table = new ListItem * [TABLE_SIZE];
-    for (int i = 0; i < TABLE_SIZE; i++)
-    {
-        table[i] = nullptr;
-    }
+    table = new ListItem * [table_size];
+
+    std::fill(table, table + table_size, nullptr);
 }
 
 HashTable::~HashTable()
@@ -17,17 +15,13 @@ HashTable::~HashTable()
 
 HashTable::HashTable(const HashTable & b) : HashTable()
 {
-    for (int i = 0; i < TABLE_SIZE; i++)
+    for (int i = 0; i < table_size; i++)
     {
         if (b.table[i] == nullptr) continue;
 
         ListItem * itemB = b.table[i];
 
-        ListItem * newItem = new ListItem;
-
-        newItem->key = itemB->key;
-        newItem->value = itemB->value;
-        newItem->next = nullptr;
+        ListItem * newItem = new ListItem(itemB->key, itemB->value, nullptr);
 
         table[i] = newItem;
         ListItem * lastItemA = newItem;
@@ -36,11 +30,7 @@ HashTable::HashTable(const HashTable & b) : HashTable()
 
         while (itemB != nullptr)
         {
-            newItem = new ListItem;
-
-            newItem->key = itemB->key;
-            newItem->value = itemB->value;
-            newItem->next = nullptr;
+            newItem = new ListItem(itemB->key, itemB->value, nullptr);
 
             lastItemA->next = newItem;
             lastItemA = newItem;
@@ -62,10 +52,12 @@ void HashTable::swap(HashTable & b)
 
 HashTable & HashTable::operator=(const HashTable & b)
 {
+    if (&b == this) return *this;
+
     this->clear();
     delete[] table;
 
-    for (int i = 0; i < TABLE_SIZE; i++)
+    for (int i = 0; i < table_size; i++)
     {
         if (b.table[i] == nullptr)
         {
@@ -75,11 +67,7 @@ HashTable & HashTable::operator=(const HashTable & b)
         {
             ListItem * itemB = b.table[i];
 
-            ListItem * newItem = new ListItem;
-
-            newItem->key = itemB->key;
-            newItem->value = itemB->value;
-            newItem->next = nullptr;
+            ListItem * newItem = new ListItem(itemB->key, itemB->value, nullptr);
 
             table[i] = newItem;
             ListItem * lastItemA = newItem;
@@ -88,11 +76,7 @@ HashTable & HashTable::operator=(const HashTable & b)
 
             while (itemB != nullptr)
             {
-                newItem = new ListItem;
-
-                newItem->key = itemB->key;
-                newItem->value = itemB->value;
-                newItem->next = nullptr;
+                newItem = new ListItem(itemB->key, itemB->value, nullptr);
 
                 lastItemA->next = newItem;
                 lastItemA = newItem;
@@ -114,7 +98,7 @@ HashTable & HashTable::operator=(HashTable && b)
 
 void HashTable::clear()
 {
-    for (int i = 0; i < TABLE_SIZE; i++)
+    for (size_t i = 0; i < table_size; i++)
     {
         if (table[i] == nullptr) continue;
 
@@ -136,7 +120,7 @@ void HashTable::clear()
 
 bool HashTable::erase(const Key & k)
 {
-    int keyHash = hash(k);
+    size_t keyHash = hash(k);
 
     if (table[keyHash] == nullptr)
     {
@@ -179,13 +163,9 @@ bool HashTable::erase(const Key & k)
 
 bool HashTable::insert(const Key & k, const Value & v)
 {
-    ListItem * newItem = new ListItem;
+    ListItem * newItem = new ListItem(k, v, nullptr);
 
-    newItem->key = k;
-    newItem->value = v;
-    newItem->next = nullptr;
-
-    int keyHash = hash(k);
+    size_t keyHash = hash(k);
 
     if (table[keyHash] == nullptr)
     {
@@ -193,10 +173,18 @@ bool HashTable::insert(const Key & k, const Value & v)
     }
     else
     {
+        size_t row_length = 0;
+
         ListItem * lastItem = table[keyHash];
-        while (lastItem->next != nullptr) lastItem = lastItem->next;
+        while (lastItem->next != nullptr)
+        {
+            lastItem = lastItem->next;
+            row_length++;
+        }
 
         lastItem->next = newItem;
+
+        if(row_length >= this->row_length_limit) this->rehash();
     }
 
     return true;
@@ -204,7 +192,7 @@ bool HashTable::insert(const Key & k, const Value & v)
 
 bool HashTable::contains(const Key & k) const
 {
-    int keyHash = hash(k);
+    size_t keyHash = hash(k);
 
     if (table[keyHash] == nullptr)
     {
@@ -224,17 +212,38 @@ bool HashTable::contains(const Key & k) const
     }
 }
 
+const Value & HashTable::operator[](const Key & k) const
+{
+    size_t keyHash = hash(k);
+
+    if (table[keyHash] != nullptr)
+    {
+        ListItem * item = table[keyHash];
+
+        while (true)
+        {
+            if (item->key == k) return item->value;
+
+            if (item->next == nullptr)
+            {
+                throw "No such element";
+            }
+            item = item->next;
+        }
+    }
+    else
+    {
+        throw "No such element";
+    }
+}
+
 Value & HashTable::operator[](const Key & k)
 {
-    int keyHash = hash(k);
+    size_t keyHash = hash(k);
 
     if (table[keyHash] == nullptr)
     {
-        ListItem * newItem = new ListItem;
-
-        newItem->key = k;
-        newItem->value = Value();
-        newItem->next = nullptr;
+        ListItem * newItem = new ListItem(k, Value(), nullptr);
 
         table[keyHash] = newItem;
         return newItem->value;
@@ -249,11 +258,7 @@ Value & HashTable::operator[](const Key & k)
 
             if (item->next == nullptr)
             {
-                ListItem * newItem = new ListItem;
-
-                newItem->key = k;
-                newItem->value = Value();
-                newItem->next = nullptr;
+                ListItem * newItem = new ListItem(k, Value(), nullptr);
 
                 item->next = newItem;
                 return newItem->value;
@@ -265,7 +270,7 @@ Value & HashTable::operator[](const Key & k)
 
 Value & HashTable::at(const Key & k)
 {
-    int keyHash = hash(k);
+    size_t keyHash = hash(k);
 
     if (table[keyHash] == nullptr)
     {
@@ -287,7 +292,7 @@ Value & HashTable::at(const Key & k)
 
 const Value & HashTable::at(const Key & k) const
 {
-    int keyHash = hash(k);
+    size_t keyHash = hash(k);
 
     if (table[keyHash] == nullptr)
     {
@@ -311,7 +316,7 @@ size_t HashTable::size() const
 {
     size_t size = 0;
 
-    for (int i = 0; i < TABLE_SIZE; i++)
+    for (int i = 0; i < table_size; i++)
     {
         ListItem * item = table[i];
         while (item != nullptr)
@@ -326,7 +331,7 @@ size_t HashTable::size() const
 
 bool HashTable::empty() const
 {
-    for (int i = 0; i < TABLE_SIZE; i++)
+    for (int i = 0; i < table_size; i++)
     {
         if (table[i] != nullptr)
         {
@@ -337,19 +342,22 @@ bool HashTable::empty() const
     return true;
 }
 
-int HashTable::hash(const Key & key) const
+size_t HashTable::hash(const Key & key) const
 {
-    int result = 0;
+    size_t result = 0;
+
     for (int i = 0; i < key.length(); i++)
     {
-        result += key[i];
+        result += (unsigned char)(key[i]);
+        result -= (result << 13) | (result >> 19);
     }
-    return result % TABLE_SIZE;
+
+    return result % table_size;
 }
 
 bool HashTable::operator==(const HashTable & other) const
 {
-    for (int i = 0; i < TABLE_SIZE; i++)
+    for (int i = 0; i < table_size; i++)
     {
         if (table[i] == nullptr && other.table[i] == nullptr)
         {
@@ -387,4 +395,29 @@ bool HashTable::operator==(const HashTable & other) const
 bool HashTable::operator!=(const HashTable & other) const
 {
     return !(*this == other);
+}
+
+void HashTable::rehash()
+{
+    size_t old_size = this->table_size;
+    ListItem ** old_table = this->table;
+
+    table_size *= 2;
+    table = new ListItem * [table_size];
+    std::fill(table, table + table_size, nullptr);
+
+    for (int i = 0; i < old_size; i++)
+    {
+        if (old_table[i] == nullptr) continue;
+
+        ListItem * item = old_table[i];
+
+        while (item != nullptr)
+        {
+            this->operator[](item->key) = item->value;
+            item = item->next;
+        }
+    }
+
+    delete old_table;
 }
