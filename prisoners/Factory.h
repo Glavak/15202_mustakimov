@@ -8,18 +8,9 @@
 #include <string>
 #include <unordered_map>
 #include "Strategy.h"
+#include "ErrorPolicies.h"
 
-template <class T>
-class DefaultErrorPolicy
-{
-public:
-    static T* HandleError()
-    {
-
-    }
-};
-
-template <class Tproduct, class Tid>
+template <class Tproduct, class Tid, class ErrorPolicy = ExceptionErrorPolicy>
 class Factory
 {
 public:
@@ -27,7 +18,7 @@ public:
 
     static Factory * getInstance()
     {
-        static Factory<Tproduct, Tid> f;
+        static Factory<Tproduct, Tid, ErrorPolicy> f;
         return &f;
     }
 
@@ -36,8 +27,7 @@ public:
         auto iter= creators.find(id);
         if(creators.end() == iter)
         {
-            throw "No such id";
-            //return ErrorPolicy::HandleError();
+            return static_cast<Strategy*>(ErrorPolicy::HandleError("No such id in table"));
         }
         return (*iter).second();
     }

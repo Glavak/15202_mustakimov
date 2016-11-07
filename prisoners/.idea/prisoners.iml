@@ -11,7 +11,6 @@
       <sourceFolder url="file://$MODULE_DIR$/Arguments.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ScoreMatrix.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Controller.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Factory.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Strategies/Traitor.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Strategies/Loyal.cpp" isTestSource="false" />

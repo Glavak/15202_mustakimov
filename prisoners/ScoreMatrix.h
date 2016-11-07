@@ -5,7 +5,6 @@
 #ifndef PRISONERS_SCOREMATRIX_H
 #define PRISONERS_SCOREMATRIX_H
 
-
 #include "Strategy.h"
 
 class ScoreMatrix

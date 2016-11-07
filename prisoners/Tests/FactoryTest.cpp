@@ -10,15 +10,14 @@ Traitor * expected = new Traitor();
 
 Strategy * testCreator()
 {
-    return expected;
+    return static_cast<Strategy*>(expected);
 }
 
 TEST(FactoryTests, Test)
 {
-    Factory::getInstance()->reg("test", testCreator);
+    Factory<Strategy, std::string>::getInstance()->reg("test", testCreator);
 
-    auto actual = Factory::getInstance()->create("test");
+    auto actual = Factory<Strategy, std::string>::getInstance()->create("test");
 
     ASSERT_EQ(expected, actual);
 }
-
