@@ -27,20 +27,27 @@ struct StrategyInfo
 class Controller
 {
 public:
-    Controller(ScoreMatrix matrix, const std::string & strategiesConfigPath, std::vector<std::string> names);
-    void tick(int count);
+    Controller(
+            const ScoreMatrix & matrix,
+            const std::string & strategiesConfigPath,
+            const std::vector<std::string> & names,
+            int steps);
+    virtual void doJob() = 0;
 
     void printState() const;
     void printWinner() const;
 
-private:
+protected:
+    int steps;
+
+    void fight(size_t num1, size_t num2, size_t num3);
+
     std::vector<StrategyInfo> strategies;
+private:
     ScoreMatrix scoreMatrix;
     std::string strategiesConfigPath;
 
     void addStrategy(const std::string & name);
-    void fight(size_t num1, size_t num2, size_t num3);
-    void tournamentTick();
 
 };
 

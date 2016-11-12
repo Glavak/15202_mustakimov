@@ -14,7 +14,7 @@ set(SOURCE_FILES
         Strategies/Varying.cpp
         Arguments.cpp
         Strategies/Democracy.cpp
-        Strategies/Psycologist.cpp)
+        Strategies/Psycologist.cpp ControllerFast.cpp ControllerFast.h ControllerDetailed.cpp ControllerDetailed.h ControllerTournament.cpp ControllerTournament.h)
 
 add_executable(prisoners
         main.cpp

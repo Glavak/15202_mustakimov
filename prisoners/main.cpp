@@ -3,6 +3,9 @@
 #include <string>
 #include "Controller.h"
 #include "Arguments.h"
+#include "ControllerTournament.h"
+#include "ControllerFast.h"
+#include "ControllerDetailed.h"
 
 
 int main(int argc, char * argv[])
@@ -27,40 +30,27 @@ int main(int argc, char * argv[])
     {
         matrix.loadFromFile(arguments.matrixFile);
     }
-    Controller controller(matrix, arguments.configDirectory, arguments.names);
+    Controller * controller;
 
-    if (arguments.mode == Modes::Detailed)
+    if (arguments.mode == Modes::Tournament)
     {
-        std::string command;
-        std::getline(std::cin, command);
-        while (command.compare("quit") != 0)
-        {
-            if (command.compare("tick") == 0)
-            {
-                controller.tick(1);
-                controller.printState();
-            }
-            else if (command.compare(0, 5, "tick ") == 0)
-            {
-                command = command.substr(5);
-                controller.tick(atoi(command.c_str()));
-                controller.printState();
-            }
-            std::getline(std::cin, command);
-        }
+        controller = new ControllerTournament(matrix, arguments.configDirectory, arguments.names, arguments.steps);
     }
-    else if (arguments.mode == Modes::Fast)
+    else if(arguments.mode == Modes::Fast)
     {
-        std::cout << "Last turn:" << std::endl;
-        controller.tick(arguments.steps);
-        controller.printState();
+        controller = new ControllerFast(matrix, arguments.configDirectory, arguments.names, arguments.steps);
     }
-    else if (arguments.mode == Modes::Tournament)
+    else if(arguments.mode == Modes::Detailed)
     {
-        controller.tick(arguments.steps);
+        controller = new ControllerDetailed(matrix, arguments.configDirectory, arguments.names, arguments.steps);
     }
+
+    controller->doJob();
+
     std::cout << std::endl;
-    controller.printWinner();
+    controller->printWinner();
+
+    delete controller;
 
     return 0;
 }

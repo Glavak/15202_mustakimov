@@ -15,32 +15,19 @@ std::ostream & operator<<(std::ostream & stream, const StrategyInfo & info)
     return stream;
 }
 
-Controller::Controller(ScoreMatrix matrix, const std::string & strategiesConfigPath,std::vector<std::string> names)
+Controller::Controller(
+        const ScoreMatrix & matrix,
+        const std::string & strategiesConfigPath,
+        const std::vector<std::string> & names,
+        int steps)
 {
     this->scoreMatrix = matrix;
     this->strategiesConfigPath = strategiesConfigPath;
+    this->steps = steps;
 
     for (std::string name : names)
     {
         addStrategy(name);
-    }
-}
-
-void Controller::tick(int count)
-{
-    if (strategies.size() == 3)
-    {
-        for (int i = 0; i < count; i++)
-        {
-            fight(0, 1, 2);
-        }
-    }
-    else
-    {
-        for (int i = 0; i < count; i++)
-        {
-            this->tournamentTick();
-        }
     }
 }
 
@@ -120,20 +107,4 @@ void Controller::fight(size_t num1, size_t num2, size_t num3)
     strategies.at(num3).lastDecision = d3;
 
     delete[] scores;
-}
-
-void Controller::tournamentTick()
-{
-    for (size_t i = 0; i < strategies.size() - 2; i++)
-    {
-        for (size_t j = i + 1; j < strategies.size() - 1; j++)
-        {
-            for (size_t k = j + 1; k < strategies.size(); k++)
-            {
-                std::cout << "Match '" << i << "vs" << j << "vs" << k << "':" << std::endl;
-                this->fight(i, j, k);
-                this->printState();
-            }
-        }
-    }
 }

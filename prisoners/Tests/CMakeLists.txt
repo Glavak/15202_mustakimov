@@ -17,7 +17,7 @@ set(SOURCE_FILES
         ../Strategies/Varying.cpp
         ../Arguments.cpp
         ../Strategies/Democracy.cpp
-        ../Strategies/Psycologist.cpp)
+        ../Strategies/Psycologist.cpp ../ControllerFast.cpp ../ControllerFast.h ../ControllerTournament.cpp ../ControllerTournament.h)
 
 add_executable(runTests
         FactoryTest.cpp
