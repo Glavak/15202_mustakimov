@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <string>
 #include "Controller.h"
 #include "Arguments.h"
 #include "ControllerTournament.h"
@@ -30,6 +29,7 @@ int main(int argc, char * argv[])
     {
         matrix.loadFromFile(arguments.matrixFile);
     }
+    // unique_ptr
     Controller * controller;
 
     if (arguments.mode == Modes::Tournament)

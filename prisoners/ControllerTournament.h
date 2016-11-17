@@ -22,7 +22,7 @@ public:
     virtual void doJob() override;
 
 private:
-void tournamentTick();
+    void tournamentTick();
 };
 
 

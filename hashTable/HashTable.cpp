@@ -399,10 +399,10 @@ bool HashTable::operator!=(const HashTable & other) const
 
 void HashTable::rehash()
 {
-    size_t old_size = this->table_size;
-    ListItem ** old_table = this->table;
+    size_t old_size = table_size;
+    ListItem ** old_table = table;
 
-    table_size *= 2;
+    table_size *= 2;  // const static int
     table = new ListItem * [table_size];
     std::fill(table, table + table_size, nullptr);
 

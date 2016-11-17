@@ -13,8 +13,17 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+    field.cpp \
+    fieldwidget.cpp \
+    mainwindow.cpp \
+    resizefielddialog.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += \
+    field.h \
+    fieldwidget.h \
+    mainwindow.h \
+    resizefielddialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += \
+    mainwindow.ui \
+    resizefielddialog.ui

@@ -11,6 +11,8 @@
 #include "Strategy.h"
 #include "ScoreMatrix.h"
 
+
+// ???????
 struct StrategyInfo
 {
     StrategyInfo(Strategy * strategy)

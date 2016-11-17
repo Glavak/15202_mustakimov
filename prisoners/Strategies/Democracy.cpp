@@ -71,6 +71,7 @@ void Democracy::AddEnemyDecision(Decision d1, Decision d2)
 
 void Democracy::LoadConfig(const std::string & path)
 {
+// ????????
     static int strategyIndex = 0;
 
     std::ifstream file;

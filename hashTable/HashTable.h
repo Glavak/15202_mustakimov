@@ -1,9 +1,6 @@
 #pragma once
 
-#include <malloc.h>
-#include <assert.h>
 #include <string>
-#include <utility>
 
 typedef std::string Key;
 
