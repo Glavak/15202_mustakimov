@@ -29,6 +29,8 @@ struct StrategyInfo
 class Controller
 {
 public:
+    virtual ~Controller();
+
     Controller(
             const ScoreMatrix & matrix,
             const std::string & strategiesConfigPath,
@@ -50,7 +52,6 @@ private:
     std::string strategiesConfigPath;
 
     void addStrategy(const std::string & name);
-
 };
 
 

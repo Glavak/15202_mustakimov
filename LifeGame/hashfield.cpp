@@ -1,9 +1,11 @@
+#include "hashfield.h"
+
 #include "field.h"
 #include <algorithm>
 #include <stdlib.h>
 #include <time.h>
 
-Field::Field(int width, int height)
+HashField::HashField(int width, int height)
 {
     this->width = width;
     this->height = height;
@@ -13,39 +15,39 @@ Field::Field(int width, int height)
     clearField();
 }
 
-bool Field::getCell(int x, int y) const
+bool HashField::getCell(int x, int y) const
 {
     return this->cells[x+y*width];
 }
 
-void Field::setCell(int x, int y, bool value)
+void HashField::setCell(int x, int y, bool value)
 {
     this->cells[x+y*width] = value;
 }
 
-void Field::invertCell(int x, int y)
+void HashField::invertCell(int x, int y)
 {
     this->cells[x+y*width] = !this->cells[x+y*width];
 }
 
-void Field::clearField()
+void HashField::clearField()
 {
     std::fill(cells, cells + width * height, false);
 }
 
-//bool randomGenerator()
-//{
-//    return rand() % 2;
-//}
+bool randomGenerator()
+{
+    return rand() % 2;
+}
 
-void Field::randomizeField()
+void HashField::randomizeField()
 {
     srand(time(nullptr));
 
-//    std::generate_n(cells, width * height, randomGenerator);
+    std::generate_n(cells, width * height, randomGenerator);
 }
 
-void Field::step(int count)
+void HashField::step(int count)
 {
     for (int i = 0; i < count; ++i)
     {
@@ -53,7 +55,7 @@ void Field::step(int count)
     }
 }
 
-int Field::getNeighboursCount(int cellX, int cellY) const
+int HashField::getNeighboursCount(int cellX, int cellY) const
 {
     int neighbours = 0;
 
@@ -75,7 +77,7 @@ int Field::getNeighboursCount(int cellX, int cellY) const
     return neighbours;
 }
 
-void Field::stepOnce()
+void HashField::stepOnce()
 {
     bool * newCells = new bool[width * height];
 

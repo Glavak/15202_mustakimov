@@ -52,7 +52,8 @@ SOURCES       = ../LifeGame/main.cpp \
 		../LifeGame/field.cpp \
 		../LifeGame/fieldwidget.cpp \
 		../LifeGame/mainwindow.cpp \
-		../LifeGame/resizefielddialog.cpp moc_fieldwidget.cpp \
+		../LifeGame/resizefielddialog.cpp \
+		../LifeGame/hashfield.cpp moc_fieldwidget.cpp \
 		moc_mainwindow.cpp \
 		moc_resizefielddialog.cpp
 OBJECTS       = main.o \
@@ -60,6 +61,7 @@ OBJECTS       = main.o \
 		fieldwidget.o \
 		mainwindow.o \
 		resizefielddialog.o \
+		hashfield.o \
 		moc_fieldwidget.o \
 		moc_mainwindow.o \
 		moc_resizefielddialog.o
@@ -215,11 +217,13 @@ DIST          = ../../Qt5.7.0/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		../LifeGame/LifeGame.pro ../LifeGame/field.h \
 		../LifeGame/fieldwidget.h \
 		../LifeGame/mainwindow.h \
-		../LifeGame/resizefielddialog.h ../LifeGame/main.cpp \
+		../LifeGame/resizefielddialog.h \
+		../LifeGame/hashfield.h ../LifeGame/main.cpp \
 		../LifeGame/field.cpp \
 		../LifeGame/fieldwidget.cpp \
 		../LifeGame/mainwindow.cpp \
-		../LifeGame/resizefielddialog.cpp
+		../LifeGame/resizefielddialog.cpp \
+		../LifeGame/hashfield.cpp
 QMAKE_TARGET  = LifeGame
 DESTDIR       = 
 TARGET        = LifeGame
@@ -552,8 +556,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../LifeGame/field.h ../LifeGame/fieldwidget.h ../LifeGame/mainwindow.h ../LifeGame/resizefielddialog.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../LifeGame/main.cpp ../LifeGame/field.cpp ../LifeGame/fieldwidget.cpp ../LifeGame/mainwindow.cpp ../LifeGame/resizefielddialog.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../LifeGame/field.h ../LifeGame/fieldwidget.h ../LifeGame/mainwindow.h ../LifeGame/resizefielddialog.h ../LifeGame/hashfield.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../LifeGame/main.cpp ../LifeGame/field.cpp ../LifeGame/fieldwidget.cpp ../LifeGame/mainwindow.cpp ../LifeGame/resizefielddialog.cpp ../LifeGame/hashfield.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../LifeGame/mainwindow.ui ../LifeGame/resizefielddialog.ui $(DISTDIR)/
 
 
@@ -682,6 +686,7 @@ moc_fieldwidget.cpp: ../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtCore/QPoint \
 		../LifeGame/field.h \
+		../LifeGame/hashfield.h \
 		../LifeGame/fieldwidget.h \
 		../../Qt5.7.0/5.7/gcc_64/bin/moc
 	/home/glavak/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/glavak/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/glavak/15202_mustakimov/LifeGame -I/home/glavak/Qt5.7.0/5.7/gcc_64/include -I/home/glavak/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/glavak/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/glavak/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../LifeGame/fieldwidget.h -o moc_fieldwidget.cpp
@@ -832,6 +837,7 @@ moc_mainwindow.cpp: ../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMainWindow \
 		../LifeGame/fieldwidget.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtCore/QPoint \
 		../LifeGame/field.h \
+		../LifeGame/hashfield.h \
 		../LifeGame/mainwindow.h \
 		../../Qt5.7.0/5.7/gcc_64/bin/moc
 	/home/glavak/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/glavak/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/glavak/15202_mustakimov/LifeGame -I/home/glavak/Qt5.7.0/5.7/gcc_64/include -I/home/glavak/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/glavak/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/glavak/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../LifeGame/mainwindow.h -o moc_mainwindow.cpp
@@ -934,6 +940,52 @@ moc_resizefielddialog.cpp: ../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
 		../../Qt5.7.0/5.7/gcc_64/include/QtCore/qfiledevice.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qvector2d.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h \
+		ui_resizefielddialog.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtCore/QVariant \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qaction.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qicon.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QButtonGroup \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialogButtonBox \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QFormLayout \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qformlayout.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLayout \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayout.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qslider.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyle.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabbar.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qrubberband.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLabel \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlabel.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QSpinBox \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qspinbox.h \
 		../LifeGame/resizefielddialog.h \
 		../../Qt5.7.0/5.7/gcc_64/bin/moc
 	/home/glavak/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/glavak/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/glavak/15202_mustakimov/LifeGame -I/home/glavak/Qt5.7.0/5.7/gcc_64/include -I/home/glavak/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/glavak/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/glavak/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../LifeGame/resizefielddialog.h -o moc_resizefielddialog.cpp
@@ -1044,7 +1096,8 @@ ui_mainwindow.h: ../LifeGame/mainwindow.ui \
 		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qvector2d.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtCore/QPoint \
-		../LifeGame/field.h
+		../LifeGame/field.h \
+		../LifeGame/hashfield.h
 	/home/glavak/Qt5.7.0/5.7/gcc_64/bin/uic ../LifeGame/mainwindow.ui -o ui_mainwindow.h
 
 ui_resizefielddialog.h: ../LifeGame/resizefielddialog.ui \
@@ -1379,6 +1432,7 @@ main.o: ../LifeGame/main.cpp ../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplica
 		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../Qt5.7.0/5.7/gcc_64/include/QtCore/QPoint \
 		../LifeGame/field.h \
+		../LifeGame/hashfield.h \
 		../LifeGame/mainwindow.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMainWindow \
 		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmainwindow.h \
@@ -1514,6 +1568,7 @@ fieldwidget.o: ../LifeGame/fieldwidget.cpp ../LifeGame/fieldwidget.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtCore/QPoint \
 		../LifeGame/field.h \
+		../LifeGame/hashfield.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtGui/QPainter \
 		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpainter.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
@@ -1677,8 +1732,19 @@ mainwindow.o: ../LifeGame/mainwindow.cpp ../../Qt5.7.0/5.7/gcc_64/include/QtWidg
 		../LifeGame/fieldwidget.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtCore/QPoint \
 		../LifeGame/field.h \
+		../LifeGame/hashfield.h \
 		../LifeGame/resizefielddialog.h \
-		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
+		ui_resizefielddialog.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialogButtonBox \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QFormLayout \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qformlayout.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLayout \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLabel \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlabel.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QSpinBox \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qspinbox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../LifeGame/mainwindow.cpp
 
 resizefielddialog.o: ../LifeGame/resizefielddialog.cpp ../LifeGame/resizefielddialog.h \
@@ -1780,8 +1846,57 @@ resizefielddialog.o: ../LifeGame/resizefielddialog.cpp ../LifeGame/resizefielddi
 		../../Qt5.7.0/5.7/gcc_64/include/QtCore/qfiledevice.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qvector2d.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h \
-		ui_resizefielddialog.h
+		ui_resizefielddialog.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtCore/QVariant \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qaction.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qicon.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QButtonGroup \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialogButtonBox \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QFormLayout \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qformlayout.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLayout \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayout.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qslider.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyle.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabbar.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qrubberband.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLabel \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlabel.h \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QSpinBox \
+		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qspinbox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o resizefielddialog.o ../LifeGame/resizefielddialog.cpp
+
+hashfield.o: ../LifeGame/hashfield.cpp ../LifeGame/hashfield.h \
+		../LifeGame/field.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o hashfield.o ../LifeGame/hashfield.cpp
 
 moc_fieldwidget.o: moc_fieldwidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_fieldwidget.o moc_fieldwidget.cpp

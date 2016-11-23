@@ -67,3 +67,9 @@ void ScoreMatrix::loadFromFile(const std::string & filename)
     file >> cooperatesScores[2];
     file >> ignore;
 }
+
+ScoreMatrix::~ScoreMatrix()
+{
+    delete[] defectsScores;
+    delete[] cooperatesScores;
+}

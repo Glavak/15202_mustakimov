@@ -19,9 +19,8 @@ Controller::Controller(
         const ScoreMatrix & matrix,
         const std::string & strategiesConfigPath,
         const std::vector<std::string> & names,
-        int steps)
+        int steps) : scoreMatrix(matrix)
 {
-    this->scoreMatrix = matrix;
     this->strategiesConfigPath = strategiesConfigPath;
     this->steps = steps;
 
@@ -107,4 +106,12 @@ void Controller::fight(size_t num1, size_t num2, size_t num3)
     strategies.at(num3).lastDecision = d3;
 
     delete[] scores;
+}
+
+Controller::~Controller()
+{
+    for (StrategyInfo str : strategies)
+    {
+        delete str.strategy;
+    }
 }

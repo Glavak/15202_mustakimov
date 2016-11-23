@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <bits/unique_ptr.h>
 #include "Controller.h"
 #include "Arguments.h"
 #include "ControllerTournament.h"
@@ -30,27 +31,25 @@ int main(int argc, char * argv[])
         matrix.loadFromFile(arguments.matrixFile);
     }
     // unique_ptr
-    Controller * controller;
+    std::unique_ptr<Controller> controller;
 
     if (arguments.mode == Modes::Tournament)
     {
-        controller = new ControllerTournament(matrix, arguments.configDirectory, arguments.names, arguments.steps);
+        controller = std::unique_ptr<Controller>(new ControllerTournament(matrix, arguments.configDirectory, arguments.names, arguments.steps));
     }
     else if(arguments.mode == Modes::Fast)
     {
-        controller = new ControllerFast(matrix, arguments.configDirectory, arguments.names, arguments.steps);
+        controller = std::unique_ptr<Controller>(new ControllerFast(matrix, arguments.configDirectory, arguments.names, arguments.steps));
     }
     else if(arguments.mode == Modes::Detailed)
     {
-        controller = new ControllerDetailed(matrix, arguments.configDirectory, arguments.names, arguments.steps);
+        controller = std::unique_ptr<Controller>(new ControllerDetailed(matrix, arguments.configDirectory, arguments.names, arguments.steps));
     }
 
     controller->doJob();
 
     std::cout << std::endl;
     controller->printWinner();
-
-    delete controller;
 
     return 0;
 }

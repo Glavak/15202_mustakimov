@@ -20,7 +20,6 @@ void ControllerTournament::tournamentTick()
     }
 }
 
-
 void ControllerTournament::doJob()
 {
     for (int i = 0; i < steps; i++)

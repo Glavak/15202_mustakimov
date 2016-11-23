@@ -13,9 +13,12 @@
       <sourceFolder url="file://$MODULE_DIR$/Tests/FactoryTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Tests/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Controller.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Controller.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ControllerTournament.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Strategies/Fortress4.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Strategies/Traitor.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Strategies/Adaptive.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Strategies/Loyal.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Strategies/Random.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Strategies/Revengeful.h" isTestSource="false" />
@@ -23,6 +26,8 @@
       <sourceFolder url="file://$MODULE_DIR$/Strategies/Democracy.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Strategies/Varying.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Strategies/Loyal.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Strategies/Fortress4.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Strategies/Adaptive.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Strategies/Traitor.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Strategies/Psycologist.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Strategies/Random.cpp" isTestSource="false" />
@@ -37,9 +42,8 @@
       <sourceFolder url="file://$MODULE_DIR$/ScoreMatrix.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ScoreMatrix.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Controller.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ControllerDetailed.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ControllerTournament.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ControllerDetailed.h" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">

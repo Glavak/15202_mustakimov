@@ -24,14 +24,18 @@ Decision Adaptive::Decide()
 {
     if (move_number <= 5)
     {
+        move_number++;
         return Decision::Cooperate;
     }
     else if (move_number <= 10)
     {
+        move_number++;
         return Decision::Defect;
     }
     else
     {
+        move_number++;
+
         int summ = 0;
         for (Decision d : choices)
         {

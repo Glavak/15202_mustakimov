@@ -14,6 +14,7 @@ public:
     int * getScores(Decision d1, Decision d2, Decision d3);
     void loadFromFile(const std::string & filename);
 
+    virtual ~ScoreMatrix();
 
 private:
     int * defectsScores;

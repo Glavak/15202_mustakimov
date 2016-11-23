@@ -8,13 +8,13 @@
 
 FieldWidget::FieldWidget(QWidget * parent) : QWidget(parent)
 {
-    field = new Field();
+    field = new HashField();
 }
 
 void FieldWidget::resizeField(int width, int height)
 {
     delete field;
-    field = new Field(width, height);
+    field = new HashField(width, height);
 
     repaint();
 }

@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPoint>
 #include "field.h"
+#include "hashfield.h"
 
 class FieldWidget : public QWidget
 {
@@ -40,7 +41,7 @@ private:
 
     QPoint cellOffset;
 
-    Field * field;
+    HashField * field;
 
     QPoint screenToWorld(QPoint) const;
 
