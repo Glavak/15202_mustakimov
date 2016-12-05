@@ -21,6 +21,9 @@ public slots:
     void stepNClicked();
     void resizeFieldClicked();
 
+    void loadClicked();
+    void saveClicked();
+
 private:
     Ui::MainWindow *ui;
 

@@ -7,9 +7,9 @@ class Field
 public:
     Field(int width = 15, int height = 15);
 
-    bool getCell(int x, int y) const;
-    void setCell(int x, int y, bool value);
-    void invertCell(int x, int y);
+    char getCell(int x, int y) const;
+    void setCell(int x, int y, char value);
+    void invertCell(int x, int y, char direction);
 
     void clearField();
     void randomizeField();
@@ -23,10 +23,10 @@ private:
     int width;
     int height;
 
-    int getNeighboursCount(int x, int y) const;
+    int getElectronHeadsCount(int x, int y) const;
     void stepOnce();
 
-    bool * cells;
+    char * cells;
 };
 
 #endif // FIELD_H

@@ -16,15 +16,13 @@ SOURCES += main.cpp\
     field.cpp \
     fieldwidget.cpp \
     mainwindow.cpp \
-    resizefielddialog.cpp \
-    hashfield.cpp
+    resizefielddialog.cpp
 
 HEADERS  += \
     field.h \
     fieldwidget.h \
     mainwindow.h \
-    resizefielddialog.h \
-    hashfield.h
+    resizefielddialog.h
 
 FORMS    += \
     mainwindow.ui \

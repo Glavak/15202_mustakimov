@@ -1,4 +1,5 @@
 #include <QInputDialog>
+#include <QFileDialog>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -49,5 +50,31 @@ void MainWindow::resizeFieldClicked()
         int height = dialog.getInputHeight();
 
         ui->fieldWidget->resizeField(width, height);
+    }
+}
+
+void MainWindow::loadClicked()
+{
+    QString s = QFileDialog::getOpenFileName(this,
+                                 tr("Save field as bitmap"),
+                                 "",
+                                 tr("Bitmaps (*.bmp)"));
+
+    if(s != nullptr)
+    {
+        ui->fieldWidget->LoadField(s);
+    }
+}
+
+void MainWindow::saveClicked()
+{
+    QString s = QFileDialog::getSaveFileName(this,
+                                 tr("Save field as bitmap"),
+                                 "",
+                                 tr("Bitmaps (*.bmp)"));
+
+    if(s != nullptr)
+    {
+        ui->fieldWidget->SaveField(s);
     }
 }

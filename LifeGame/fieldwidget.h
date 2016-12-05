@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <QPoint>
 #include "field.h"
-#include "hashfield.h"
 
 class FieldWidget : public QWidget
 {
@@ -16,6 +15,9 @@ public:
     int getFieldHeight(){return field->getHeight();}
 
     void resizeField(int width, int height);
+
+    void LoadField(QString file);
+    void SaveField(QString file);
 
 protected:
     void paintEvent(QPaintEvent * event) override;
@@ -41,7 +43,7 @@ private:
 
     QPoint cellOffset;
 
-    HashField * field;
+    Field * field;
 
     QPoint screenToWorld(QPoint) const;
 
