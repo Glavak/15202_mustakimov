@@ -56,7 +56,7 @@ void MainWindow::resizeFieldClicked()
 void MainWindow::loadClicked()
 {
     QString s = QFileDialog::getOpenFileName(this,
-                                 tr("Save field as bitmap"),
+                                 tr("Open bitmap field"),
                                  "",
                                  tr("Bitmaps (*.bmp)"));
 

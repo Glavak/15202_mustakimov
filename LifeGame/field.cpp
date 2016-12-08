@@ -43,7 +43,7 @@ void Field::clearField()
 
 bool randomGenerator()
 {
-    return rand() % 2;
+    return rand() % 4;
 }
 
 void Field::randomizeField()
