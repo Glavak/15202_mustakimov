@@ -30,7 +30,7 @@ int main(int argc, char * argv[])
     {
         matrix.loadFromFile(arguments.matrixFile);
     }
-    // unique_ptr
+
     std::unique_ptr<Controller> controller;
 
     if (arguments.mode == Modes::Tournament)

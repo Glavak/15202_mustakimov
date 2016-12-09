@@ -5,20 +5,19 @@
 #ifndef PRISONERS_SCOREMATRIX_H
 #define PRISONERS_SCOREMATRIX_H
 
+#include <vector>
 #include "Strategy.h"
 
 class ScoreMatrix
 {
 public:
     ScoreMatrix();
-    int * getScores(Decision d1, Decision d2, Decision d3);
+    std::tuple<int, int, int> getScores(Decision d1, Decision d2, Decision d3) const;
     void loadFromFile(const std::string & filename);
 
-    virtual ~ScoreMatrix();
-
 private:
-    int * defectsScores;
-    int * cooperatesScores;
+    std::vector<int> defectsScores;
+    std::vector<int> cooperatesScores;
 };
 
 

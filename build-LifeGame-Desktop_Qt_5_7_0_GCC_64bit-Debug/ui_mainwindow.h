@@ -34,6 +34,8 @@ public:
     QAction *actionResize;
     QAction *actionClear;
     QAction *actionRandomize;
+    QAction *actionSave;
+    QAction *actionLoad;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
     FieldWidget *fieldWidget;
@@ -62,10 +64,15 @@ public:
         actionClear->setObjectName(QStringLiteral("actionClear"));
         actionRandomize = new QAction(MainWindow);
         actionRandomize->setObjectName(QStringLiteral("actionRandomize"));
+        actionSave = new QAction(MainWindow);
+        actionSave->setObjectName(QStringLiteral("actionSave"));
+        actionLoad = new QAction(MainWindow);
+        actionLoad->setObjectName(QStringLiteral("actionLoad"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
         fieldWidget = new FieldWidget(centralwidget);
         fieldWidget->setObjectName(QStringLiteral("fieldWidget"));
 
@@ -97,6 +104,9 @@ public:
         menuField->addSeparator();
         menuField->addAction(actionClear);
         menuField->addAction(actionRandomize);
+        menuField->addSeparator();
+        menuField->addAction(actionSave);
+        menuField->addAction(actionLoad);
 
         retranslateUi(MainWindow);
         QObject::connect(actionStep, SIGNAL(triggered()), fieldWidget, SLOT(stepOnce()));
@@ -106,6 +116,8 @@ public:
         QObject::connect(actionResize, SIGNAL(triggered()), MainWindow, SLOT(resizeFieldClicked()));
         QObject::connect(actionRandomize, SIGNAL(triggered()), fieldWidget, SLOT(randomizeField()));
         QObject::connect(actionClear, SIGNAL(triggered()), fieldWidget, SLOT(clearField()));
+        QObject::connect(actionLoad, SIGNAL(triggered()), MainWindow, SLOT(loadClicked()));
+        QObject::connect(actionSave, SIGNAL(triggered()), MainWindow, SLOT(saveClicked()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -124,6 +136,10 @@ public:
         actionResize->setText(QApplication::translate("MainWindow", "Resize...", 0));
         actionClear->setText(QApplication::translate("MainWindow", "Clear", 0));
         actionRandomize->setText(QApplication::translate("MainWindow", "Randomize", 0));
+        actionSave->setText(QApplication::translate("MainWindow", "Save...", 0));
+        actionSave->setShortcut(QApplication::translate("MainWindow", "Ctrl+S", 0));
+        actionLoad->setText(QApplication::translate("MainWindow", "Load...", 0));
+        actionLoad->setShortcut(QApplication::translate("MainWindow", "Ctrl+O", 0));
         menuSimulation->setTitle(QApplication::translate("MainWindow", "Simulation", 0));
         menuView->setTitle(QApplication::translate("MainWindow", "View", 0));
         menuField->setTitle(QApplication::translate("MainWindow", "Field", 0));

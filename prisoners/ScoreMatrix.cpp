@@ -3,15 +3,23 @@
 //
 
 #include <fstream>
+#include <tuple>
 #include "ScoreMatrix.h"
 
 ScoreMatrix::ScoreMatrix()
 {
-    defectsScores = new int[4]{-1/*doesn't matter*/, 0, 2, 4};
-    cooperatesScores = new int[4]{1, 3, 5, -1/*doesn't matter*/};
+    defectsScores.push_back(-1); // Doesn't matter
+    defectsScores.push_back(0);
+    defectsScores.push_back(2);
+    defectsScores.push_back(4);
+
+    cooperatesScores.push_back(1);
+    cooperatesScores.push_back(3);
+    cooperatesScores.push_back(5);
+    cooperatesScores.push_back(-1); // Doesn't matter
 }
 
-int * ScoreMatrix::getScores(Decision d1, Decision d2, Decision d3)
+std::tuple<int, int, int> ScoreMatrix::getScores(Decision d1, Decision d2, Decision d3) const
 {
     int cooperateCount = 0;
 
@@ -19,7 +27,7 @@ int * ScoreMatrix::getScores(Decision d1, Decision d2, Decision d3)
     if (d2 == Decision::Cooperate) cooperateCount++;
     if (d3 == Decision::Cooperate) cooperateCount++;
 
-    int * scores = new int[3];
+    int scores[3];
 
     if (d1 == Decision::Cooperate)
     {
@@ -48,7 +56,7 @@ int * ScoreMatrix::getScores(Decision d1, Decision d2, Decision d3)
         scores[2] = cooperatesScores[cooperateCount];
     }
 
-    return scores;
+    return std::make_tuple(scores[0], scores[1], scores[2]);
 }
 
 void ScoreMatrix::loadFromFile(const std::string & filename)
@@ -66,10 +74,4 @@ void ScoreMatrix::loadFromFile(const std::string & filename)
     file >> cooperatesScores[1];
     file >> cooperatesScores[2];
     file >> ignore;
-}
-
-ScoreMatrix::~ScoreMatrix()
-{
-    delete[] defectsScores;
-    delete[] cooperatesScores;
 }

@@ -5,7 +5,6 @@
 #ifndef PRISONERS_CONTROLLERTOURNAMENT_H
 #define PRISONERS_CONTROLLERTOURNAMENT_H
 
-
 #include "Controller.h"
 
 class ControllerTournament : public Controller

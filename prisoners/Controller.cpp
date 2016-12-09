@@ -72,16 +72,17 @@ void Controller::printWinner() const
 
 void Controller::addStrategy(const std::string & name)
 {
-    StrategyInfo strategyInfo(Factory<Strategy, std::string>::getInstance()->create(name));
+    std::shared_ptr<Strategy> strategy(Factory<Strategy, std::string>::getInstance()->create(name));
+    StrategyInfo strategyInfo(strategy);
     strategies.push_back(strategyInfo);
     strategyInfo.strategy->LoadConfig(this->strategiesConfigPath);
 }
 
 void Controller::fight(size_t num1, size_t num2, size_t num3)
 {
-    Strategy * s1 = strategies.at(num1).strategy;
-    Strategy * s2 = strategies.at(num2).strategy;
-    Strategy * s3 = strategies.at(num3).strategy;
+    std::shared_ptr<Strategy> s1 = strategies.at(num1).strategy;
+    std::shared_ptr<Strategy> s2 = strategies.at(num2).strategy;
+    std::shared_ptr<Strategy> s3 = strategies.at(num3).strategy;
 
     Decision d1 = s1->Decide();
     Decision d2 = s2->Decide();
@@ -91,27 +92,22 @@ void Controller::fight(size_t num1, size_t num2, size_t num3)
     s2->AddEnemyDecision(d1, d3);
     s3->AddEnemyDecision(d1, d2);
 
-    int * scores = scoreMatrix.getScores(d1, d2, d3);
+    auto scores = scoreMatrix.getScores(d1, d2, d3);
 
-    strategies.at(num1).currentScore += scores[0];
-    strategies.at(num2).currentScore += scores[1];
-    strategies.at(num3).currentScore += scores[2];
+    strategies.at(num1).currentScore += std::get<0>(scores);
+    strategies.at(num2).currentScore += std::get<1>(scores);
+    strategies.at(num3).currentScore += std::get<2>(scores);
 
-    strategies.at(num1).lastScore = scores[0];
-    strategies.at(num2).lastScore = scores[1];
-    strategies.at(num3).lastScore = scores[2];
+    strategies.at(num1).lastScore = std::get<0>(scores);
+    strategies.at(num2).lastScore = std::get<1>(scores);
+    strategies.at(num3).lastScore = std::get<2>(scores);
 
     strategies.at(num1).lastDecision = d1;
     strategies.at(num2).lastDecision = d2;
     strategies.at(num3).lastDecision = d3;
-
-    delete[] scores;
 }
 
-Controller::~Controller()
+const std::vector<StrategyInfo> & Controller::getStrategies() const
 {
-    for (StrategyInfo str : strategies)
-    {
-        delete str.strategy;
-    }
+    return strategies;
 }

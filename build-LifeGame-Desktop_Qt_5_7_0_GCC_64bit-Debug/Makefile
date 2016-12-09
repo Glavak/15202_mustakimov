@@ -52,8 +52,7 @@ SOURCES       = ../LifeGame/main.cpp \
 		../LifeGame/field.cpp \
 		../LifeGame/fieldwidget.cpp \
 		../LifeGame/mainwindow.cpp \
-		../LifeGame/resizefielddialog.cpp \
-		../LifeGame/hashfield.cpp moc_fieldwidget.cpp \
+		../LifeGame/resizefielddialog.cpp moc_fieldwidget.cpp \
 		moc_mainwindow.cpp \
 		moc_resizefielddialog.cpp
 OBJECTS       = main.o \
@@ -61,7 +60,6 @@ OBJECTS       = main.o \
 		fieldwidget.o \
 		mainwindow.o \
 		resizefielddialog.o \
-		hashfield.o \
 		moc_fieldwidget.o \
 		moc_mainwindow.o \
 		moc_resizefielddialog.o
@@ -217,13 +215,11 @@ DIST          = ../../Qt5.7.0/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		../LifeGame/LifeGame.pro ../LifeGame/field.h \
 		../LifeGame/fieldwidget.h \
 		../LifeGame/mainwindow.h \
-		../LifeGame/resizefielddialog.h \
-		../LifeGame/hashfield.h ../LifeGame/main.cpp \
+		../LifeGame/resizefielddialog.h ../LifeGame/main.cpp \
 		../LifeGame/field.cpp \
 		../LifeGame/fieldwidget.cpp \
 		../LifeGame/mainwindow.cpp \
-		../LifeGame/resizefielddialog.cpp \
-		../LifeGame/hashfield.cpp
+		../LifeGame/resizefielddialog.cpp
 QMAKE_TARGET  = LifeGame
 DESTDIR       = 
 TARGET        = LifeGame
@@ -556,8 +552,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../LifeGame/field.h ../LifeGame/fieldwidget.h ../LifeGame/mainwindow.h ../LifeGame/resizefielddialog.h ../LifeGame/hashfield.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../LifeGame/main.cpp ../LifeGame/field.cpp ../LifeGame/fieldwidget.cpp ../LifeGame/mainwindow.cpp ../LifeGame/resizefielddialog.cpp ../LifeGame/hashfield.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../LifeGame/field.h ../LifeGame/fieldwidget.h ../LifeGame/mainwindow.h ../LifeGame/resizefielddialog.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../LifeGame/main.cpp ../LifeGame/field.cpp ../LifeGame/fieldwidget.cpp ../LifeGame/mainwindow.cpp ../LifeGame/resizefielddialog.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../LifeGame/mainwindow.ui ../LifeGame/resizefielddialog.ui $(DISTDIR)/
 
 
@@ -686,7 +682,6 @@ moc_fieldwidget.cpp: ../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtCore/QPoint \
 		../LifeGame/field.h \
-		../LifeGame/hashfield.h \
 		../LifeGame/fieldwidget.h \
 		../../Qt5.7.0/5.7/gcc_64/bin/moc
 	/home/glavak/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/glavak/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/glavak/15202_mustakimov/LifeGame -I/home/glavak/Qt5.7.0/5.7/gcc_64/include -I/home/glavak/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/glavak/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/glavak/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../LifeGame/fieldwidget.h -o moc_fieldwidget.cpp
@@ -837,7 +832,6 @@ moc_mainwindow.cpp: ../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMainWindow \
 		../LifeGame/fieldwidget.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtCore/QPoint \
 		../LifeGame/field.h \
-		../LifeGame/hashfield.h \
 		../LifeGame/mainwindow.h \
 		../../Qt5.7.0/5.7/gcc_64/bin/moc
 	/home/glavak/Qt5.7.0/5.7/gcc_64/bin/moc $(DEFINES) -I/home/glavak/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++ -I/home/glavak/15202_mustakimov/LifeGame -I/home/glavak/Qt5.7.0/5.7/gcc_64/include -I/home/glavak/Qt5.7.0/5.7/gcc_64/include/QtWidgets -I/home/glavak/Qt5.7.0/5.7/gcc_64/include/QtGui -I/home/glavak/Qt5.7.0/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../LifeGame/mainwindow.h -o moc_mainwindow.cpp
@@ -1096,8 +1090,7 @@ ui_mainwindow.h: ../LifeGame/mainwindow.ui \
 		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qvector2d.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtCore/QPoint \
-		../LifeGame/field.h \
-		../LifeGame/hashfield.h
+		../LifeGame/field.h
 	/home/glavak/Qt5.7.0/5.7/gcc_64/bin/uic ../LifeGame/mainwindow.ui -o ui_mainwindow.h
 
 ui_resizefielddialog.h: ../LifeGame/resizefielddialog.ui \
@@ -1432,7 +1425,6 @@ main.o: ../LifeGame/main.cpp ../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplica
 		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../Qt5.7.0/5.7/gcc_64/include/QtCore/QPoint \
 		../LifeGame/field.h \
-		../LifeGame/hashfield.h \
 		../LifeGame/mainwindow.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMainWindow \
 		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmainwindow.h \
@@ -1568,7 +1560,6 @@ fieldwidget.o: ../LifeGame/fieldwidget.cpp ../LifeGame/fieldwidget.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtouchdevice.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtCore/QPoint \
 		../LifeGame/field.h \
-		../LifeGame/hashfield.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtGui/QPainter \
 		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpainter.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
@@ -1732,7 +1723,6 @@ mainwindow.o: ../LifeGame/mainwindow.cpp ../../Qt5.7.0/5.7/gcc_64/include/QtWidg
 		../LifeGame/fieldwidget.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtCore/QPoint \
 		../LifeGame/field.h \
-		../LifeGame/hashfield.h \
 		../LifeGame/resizefielddialog.h \
 		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialog \
 		ui_resizefielddialog.h \
@@ -1893,10 +1883,6 @@ resizefielddialog.o: ../LifeGame/resizefielddialog.cpp ../LifeGame/resizefielddi
 		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QSpinBox \
 		../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qspinbox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o resizefielddialog.o ../LifeGame/resizefielddialog.cpp
-
-hashfield.o: ../LifeGame/hashfield.cpp ../LifeGame/hashfield.h \
-		../LifeGame/field.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o hashfield.o ../LifeGame/hashfield.cpp
 
 moc_fieldwidget.o: moc_fieldwidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_fieldwidget.o moc_fieldwidget.cpp

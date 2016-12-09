@@ -19,5 +19,5 @@ TEST(FactoryTests, Test)
 
     auto actual = Factory<Strategy, std::string>::getInstance()->create("test");
 
-    ASSERT_EQ(expected, actual);
+    EXPECT_EQ(expected, actual);
 }

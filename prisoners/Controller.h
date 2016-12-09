@@ -8,19 +8,18 @@
 
 #include <unordered_map>
 #include <vector>
+#include <memory>
 #include "Strategy.h"
 #include "ScoreMatrix.h"
 
-
-// ???????
 struct StrategyInfo
 {
-    StrategyInfo(Strategy * strategy)
+    StrategyInfo(std::shared_ptr<Strategy> strategy)
     {
         this->strategy = strategy;
     }
 
-    Strategy * strategy;
+    std::shared_ptr<Strategy> strategy;
     int currentScore = 0;
     int lastScore = 0;
     Decision lastDecision;
@@ -29,8 +28,6 @@ struct StrategyInfo
 class Controller
 {
 public:
-    virtual ~Controller();
-
     Controller(
             const ScoreMatrix & matrix,
             const std::string & strategiesConfigPath,
@@ -41,6 +38,8 @@ public:
     void printState() const;
     void printWinner() const;
 
+    const std::vector<StrategyInfo> & getStrategies() const;
+
 protected:
     int steps;
 
@@ -48,7 +47,7 @@ protected:
 
     std::vector<StrategyInfo> strategies;
 private:
-    ScoreMatrix scoreMatrix;
+    const ScoreMatrix & scoreMatrix;
     std::string strategiesConfigPath;
 
     void addStrategy(const std::string & name);
