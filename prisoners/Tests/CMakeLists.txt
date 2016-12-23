@@ -17,7 +17,9 @@ set(SOURCE_FILES
         ../Strategies/Varying.cpp
         ../Arguments.cpp
         ../Strategies/Democracy.cpp
-        ../ControllerFast.cpp ../ControllerFast.h ../ControllerTournament.cpp ../ControllerTournament.h ../Strategies/Fortress4.cpp ../Strategies/Fortress4.h ../Strategies/Sgs.cpp ../Strategies/Sgs.h)
+        ../ControllerFast.cpp
+        ../ControllerDetailed.cpp
+        ../ControllerTournament.cpp ../ControllerTournament.h ../Strategies/Fortress4.cpp ../Strategies/Fortress4.h ../Strategies/Sgs.cpp ../Strategies/Sgs.h)
 
 add_executable(runTests
         FactoryTest.cpp

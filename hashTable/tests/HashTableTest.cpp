@@ -9,7 +9,7 @@ TEST(MyArrayTests, AddGetTest)
     table.insert("Aba", Value{19, 100});
     table.insert("Harold", Value{18, 64});
 
-    ASSERT_EQ(42, table.at("Aab").weight);
+    ASSERT_EQ(42, table["Aab"].weight);
     ASSERT_EQ(19, table.at("Aba").age);
     ASSERT_ANY_THROW(table.at("Simon"));
 }
@@ -24,11 +24,16 @@ TEST(MyArrayTests, RehashTest)
 
     for (int i = 0; i < 1000; i++)
     {
-        table.insert(std::to_string(i).c_str(), Value{5,3});
+        table.insert(std::to_string(i).c_str(), Value{5, 3});
     }
 
-    ASSERT_EQ(42, table.at("Aab").weight);
-    ASSERT_EQ(19, table.at("Aba").age);
+    const HashTable & table2 = table;
+
+    const Value & v1 = table2.at("Aab");
+    const Value & v2 = table2["Aba"];
+
+    ASSERT_EQ(42, v1.weight);
+    ASSERT_EQ(19, v2.age);
     ASSERT_ANY_THROW(table.at("Simon"));
 }
 
@@ -59,17 +64,22 @@ TEST(MyArrayTests, EraseContainTest)
     table.insert("Aba", Value{19, 100});
     table.insert("Harold", Value{18, 64});
 
+    for (int i = 0; i < 1000; i++)
+    {
+        table.insert(std::to_string(i).c_str(), Value{5, 3});
+    }
+
     ASSERT_TRUE(table.contains("Harold"));
     ASSERT_FALSE(table.contains("Shaw"));
 
-    ASSERT_TRUE(table.erase("Aab"));
+    ASSERT_TRUE(table.erase("42"));
     ASSERT_FALSE(table.erase("John"));
     ASSERT_TRUE(table.erase("Harold"));
 
     ASSERT_TRUE(table.contains("Aba"));
     ASSERT_FALSE(table.contains("Harold"));
 
-    ASSERT_ANY_THROW(table.at("Aab"));
+    ASSERT_ANY_THROW(table.at("42"));
     ASSERT_ANY_THROW(table.at("Bob"));
     ASSERT_EQ(100, table.at("Aba").weight);
 }
@@ -107,6 +117,31 @@ TEST(MyArrayTests, CopyTest)
     table["Harold"] = Value{18, 64};
 
     HashTable table2 = table;
+
+    table2["Aab"].age = 42;
+    table["Harold"].age = 30;
+
+    ASSERT_EQ(18, table["Aab"].age);
+    ASSERT_EQ(30, table["Harold"].age);
+
+    ASSERT_EQ(42, table2["Aab"].age);
+    ASSERT_EQ(18, table2["Harold"].age);
+
+    table["Shaw"].age = 30;
+
+    ASSERT_FALSE(table2.contains("Shaw"));
+}
+
+TEST(MyArrayTests, AssignTest)
+{
+    HashTable table;
+
+    table["Aab"] = Value{18, 42};
+    table["Aba"] = Value{19, 100};
+    table["Harold"] = Value{18, 64};
+
+    HashTable table2;
+    table2 = table;
 
     table2["Aab"].age = 42;
     table["Harold"].age = 30;

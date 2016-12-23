@@ -88,5 +88,5 @@ private:
 
     void rehash();
 
-    const size_t row_length_limit = 12;
+    const size_t row_length_limit = 64;
 };

@@ -5,6 +5,7 @@
 #include <gtest/gtest.h>
 #include "../Arguments.h"
 #include "../ControllerFast.h"
+#include "../ControllerDetailed.h"
 
 TEST(GameTests, ArgumentsTest)
 {
@@ -62,4 +63,24 @@ TEST(GameTests, ControllerTournament)
     EXPECT_EQ(2, infos[1].currentScore);
     EXPECT_EQ(5, infos[2].currentScore);
     EXPECT_EQ(0, infos[3].currentScore);
+}
+
+TEST(GameTests, ControllerDetailed)
+{
+    ScoreMatrix m;
+    std::vector<std::string> names;
+    names.push_back("loyal");
+    names.push_back("loyal");
+    names.push_back("traitor");
+    ControllerDetailed controllerDetailed(m, "", names, 2);
+
+    controllerDetailed.doJob();
+
+    auto infos = controllerDetailed.getStrategies();
+    auto scores = m.getScores(Cooperate, Cooperate, Defect);
+
+    EXPECT_EQ(3, infos.size());
+    EXPECT_EQ(std::get<0>(scores), infos[0].currentScore);
+    EXPECT_EQ(std::get<1>(scores), infos[1].currentScore);
+    EXPECT_EQ(std::get<2>(scores), infos[2].currentScore);
 }

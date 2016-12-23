@@ -57,6 +57,10 @@ HashTable & HashTable::operator=(const HashTable & b)
     this->clear();
     delete[] table;
 
+    table_size = b.table_size;
+    table = new ListItem * [table_size];
+    std::fill(table, table + table_size, nullptr);
+
     for (int i = 0; i < table_size; i++)
     {
         if (b.table[i] == nullptr)
