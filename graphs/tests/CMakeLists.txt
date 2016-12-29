@@ -10,7 +10,8 @@ add_definitions(--coverage)
 set(CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS} " --coverage")
 
 add_executable(runTests
-        GraphTest.cpp
-        )
+        GraphMatrixTests.cpp
+        SearchesMatrixTests.cpp
+        SearchesLinkedTests.cpp)
 
 target_link_libraries(runTests gtest gtest_main)
